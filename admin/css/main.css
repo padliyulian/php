@@ -1,0 +1,36 @@
+.julian-container .julian-table {
+  overflow: auto;
+}
+
+.julian-container .julian-table table,
+.julian-container .julian-table table tr th,
+.julian-container .julian-table table tr td {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.julian-container .julian-table table tr th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+  text-transform: uppercase;
+}
+
+.julian-container .julian-table table tr th,
+.julian-container .julian-table table tr td {
+  padding: 8px;
+}
+
+.julian-container .julian-table table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.julian-container .julian-table table tr:hover {
+  background-color: #ddd;
+}
+
+.julian-container .julian-table table tr td img {
+  width: 60px;
+}
