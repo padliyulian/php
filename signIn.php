@@ -1,24 +1,29 @@
 <?php
+  // including file
   require "admin/functions.php";
+
+  // check if cookie already exist
+  if(isset($_COOKIE["id"]) && isset($_COOKIE["username"])) {
+    checkCookie($_COOKIE);
+  }
+
+  // check session
+  checkSession("guest");
+
   if(isset($_POST["signin"])) {
-    $username = $_POST["username"];
-    $password = $_POST["password"];    
-
-    $query = "SELECT * FROM users WHERE username = '$username'";
-    $cUser = mysqli_query($conn, $query);
-
-    if(mysqli_num_rows($cUser) === 1) {
-      $row = mysqli_fetch_assoc($cUser);
-      if(password_verify($password, $row["password"])) {
-        header("Location: admin");
-        exit;
+    if(signin($_POST)) {
+      // create cookie
+      if(isset($_POST["remember"])) {
+        createCookie($_POST["username"]);
       }
+      header("Location: admin");
+      exit;
+    } else {
+      // set error true
+      $error = true;
     }
-
-    $error = true;
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +38,7 @@
 
   <div class="julian-signin">
     <?php if($error) : ?>
+      <!-- error message -->
       <p style='color: red;'>username or password wrong ...</p>
     <?php endif ; ?>
     <form action="" method="POST">
@@ -44,6 +50,10 @@
         <li>
           <label for="password">Password</label>
           <input type="password" name="password" id="password" maxlength="50" autocomplete="off" required>
+        </li>
+        <li>
+          <input type="checkbox" name="remember" id="remember">
+          <label for="remember">Remember Me</label>
         </li>
         <li>
           <button type="submit" name="signin">Sign In</button>

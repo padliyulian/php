@@ -1,5 +1,6 @@
 <?php
   require "functions.php";
+  checkSession("user");
 
   if(isset($_POST["submit"])) {
     if(add($_POST) > 0) {

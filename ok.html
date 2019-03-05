@@ -29,3 +29,23 @@
 </body>
 
 </html>
+
+// get user & passwd from $_POST and put on var
+$username = $_POST["username"];
+$password = $_POST["password"];
+
+// search username from db
+$query = "SELECT * FROM users WHERE username = '$username'";
+$cUser = mysqli_query($conn, $query);
+
+// check if user exist or not
+if(mysqli_num_rows($cUser) === 1) {
+// put user on var row
+$row = mysqli_fetch_assoc($cUser);
+// check password
+if(password_verify($password, $row["password"])) {
+$_SESSION["login"] = true;
+header("Location: admin");
+exit;
+}
+}

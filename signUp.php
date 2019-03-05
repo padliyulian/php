@@ -1,5 +1,6 @@
 <?php
   require "admin/functions.php";
+  checkSession("guest");
   if(isset($_POST["signup"])) {
     if(signup($_POST) > 0) {
       echo "<p style='color: red;'>signup success ...</p>";

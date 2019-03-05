@@ -7,6 +7,100 @@
     die("Connection failed: " . mysqli_connect_error());
   }
 
+  // sign function
+  function signin($data) {
+    global $conn;
+
+    // get user & passwd data and put on var
+    $username = $data["username"];
+    $password = $data["password"];    
+
+    // search username from db
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $cUser = mysqli_query($conn, $query);
+
+    // check if user exist or not
+    if(mysqli_num_rows($cUser) === 1) {
+      // put user on var row
+      $row = mysqli_fetch_assoc($cUser);
+      // check password
+      if(password_verify($password, $row["password"])) {
+        // create session
+        $_SESSION["login"] = true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // check cookie function
+  function checkCookie($data) {
+    global $conn;
+    // get cookie & put on var
+    $id = $data["id"];
+    $username = $data["username"];
+    // check id from db
+    $query = "SELECT * FROM users WHERE id = $id";
+    // call sql function
+    $row = sql($query);
+    // if username match
+    if($username === hash("sha256", $row["username"])) {
+      // create session
+      $_SESSION["login"] = true;
+    }
+  }
+
+  // create cookie function
+  function createCookie($username) {
+    global $conn;
+
+    // search username from db
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    // create cookie
+    setcookie("id", $row["id"], time()+3600, "/");
+    setcookie("username", hash("sha256", $row["username"]), time()+3600, "/");
+  }
+
+  // check session function
+  function checkSession($data) {
+    // start session
+    session_start();
+    // if user
+    if($data === "user") {
+      if(!isset($_SESSION["login"])) {
+        header("Location: ../signIn.php");
+        exit;
+      }
+    }
+    // if guest
+    if($data === "guest") {
+      if(isset($_SESSION["login"])) {
+        header("Location: admin");
+        exit;
+      }
+    }
+  }
+
+  // signout function
+  function signout() {
+    // unset session
+    session_destroy();
+    session_unset();
+    $_SESSION = [];
+
+    // unset cookie
+    setcookie("id", "", time()-4000, "/");
+    setcookie("username", "", time()-4000, "/");
+    unset($_COOKIE["id"]);
+    unset($_COOKIE["username"]);
+
+    header("Location: ../signIn.php");
+    exit;
+  }
+
   // read function
   function sql($query) {
     // desc as global var

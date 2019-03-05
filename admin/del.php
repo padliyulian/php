@@ -1,5 +1,6 @@
 <?php
 	require "functions.php";
+	checkSession("user");
 	// get id from superglobal method $_GET put on var id
 	$id = $_GET["id"];
 	// call function del with passed args/params

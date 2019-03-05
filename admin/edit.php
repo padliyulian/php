@@ -1,5 +1,6 @@
 <?php
   require "functions.php";
+  checkSession("user");
   $id = $_GET["id"];
   // call read db function & put result on var
   $student = sql("SELECT * FROM students WHERE id = $id")[0];
