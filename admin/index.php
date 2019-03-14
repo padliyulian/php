@@ -31,7 +31,8 @@
   <div class="julian-container">
     <h2>List Of Student</h2>
     <p>
-      <a href="signOut.php">Sign Out</a>
+      <a href="signOut.php">Sign Out</a> |
+      <a href="print.php" target="_blank">Print</a>
     </p>
     <p>
       <a href="add.php">Add New</a>
@@ -86,7 +87,7 @@
           <th>Action</th>
         </tr>
         <!-- desc var no -->
-        <?php $no = 1; ?>
+        <?php $no = $index + 1; ?>
         <!-- looping data -->
         <?php foreach ($students as $student) : ?>
           <tr>
