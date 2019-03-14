@@ -1,0 +1,12 @@
+div.ip-navbar {
+  margin-bottom: 20px;
+}
+
+.container footer {
+  margin-top: 30px;
+}
+
+footer span,
+footer span a {
+  color: #E56976;
+}

@@ -1,0 +1,25 @@
+.container table,
+.container th,
+.container td {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.container th {
+  text-transform: uppercase;
+  background: #E56976;
+  color: white;
+}
+
+.container tr:hover {
+  background: #ddd;
+}
+
+.container th,
+.container td {
+  padding: 8px;
+}
+
+.container table td img {
+  width: 50px;
+}
