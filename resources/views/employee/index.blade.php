@@ -50,7 +50,11 @@
                             <td scope="row">{{ $employee->updated_at}}</td>
                             <td scope="row">
                                 <a href="#" class="badge badge-success">edit</a>
-                                <a href="#" class="badge badge-danger">delete</a>
+                                <form action="{{ url('/employee/'.$employee->id) }}" method="POST">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="badge badge-danger">delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

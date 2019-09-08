@@ -18,3 +18,4 @@ Route::get('/employee/create', 'EmployeeController@create');
 Route::get('/employee/{employee}', 'EmployeeController@show');
 
 Route::post('/employee', 'EmployeeController@store');
+Route::delete('/employee/{employee}', 'EmployeeController@destroy');
