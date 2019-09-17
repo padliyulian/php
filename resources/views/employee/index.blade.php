@@ -49,7 +49,7 @@
                             <td scope="row">{{ $employee->created_at}}</td>
                             <td scope="row">{{ $employee->updated_at}}</td>
                             <td scope="row">
-                                <a href="#" class="badge badge-success">edit</a>
+                                <a href="{{ url('/employee/'.$employee->id.'/edit') }}" class="badge badge-success">edit</a>
                                 <form action="{{ url('/employee/'.$employee->id) }}" method="POST">
                                     @method('delete')
                                     @csrf

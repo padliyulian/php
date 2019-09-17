@@ -61,9 +61,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        return view('employee/edit', compact('employee'));
     }
 
     /**
@@ -73,9 +73,21 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $request->validate([
+            'nik' => 'required|size:10',
+            'name' => 'required'
+        ]);
+
+        Employee::where('id', $employee->id)->update([
+            'nik' => $request->nik,
+            'name' => $request->name,
+            'sex' => $request->sex,
+            'position' => $request->position,
+        ]);
+        
+        return redirect('/employee')->with('status', 'update employee success');
     }
 
     /**

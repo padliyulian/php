@@ -13,9 +13,12 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
-Route::get('/employee', 'EmployeeController@index');
-Route::get('/employee/create', 'EmployeeController@create');
-Route::get('/employee/{employee}', 'EmployeeController@show');
+Route::resource('employee', 'EmployeeController');
+// Route::get('/employee', 'EmployeeController@index');
+// Route::get('/employee/create', 'EmployeeController@create');
+// Route::get('/employee/{employee}', 'EmployeeController@show');
 
-Route::post('/employee', 'EmployeeController@store');
-Route::delete('/employee/{employee}', 'EmployeeController@destroy');
+// Route::post('/employee', 'EmployeeController@store');
+// Route::delete('/employee/{employee}', 'EmployeeController@destroy');
+// Route::get('/employee/{employee}/edit', 'EmployeeController@edit');
+// Route::patch('/employee/{employee}', 'EmployeeController@update');
