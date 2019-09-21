@@ -4,13 +4,7 @@
 @section('main')
     <div class="container">
         <div class="row">
-            @if (session('status'))
-                <div class="col-md-12">
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                </div>
-            @endif
+            @include('message.success')
             <div class="col-md-10">
                 <h5>List Of Employee</h5>
             </div>
@@ -45,7 +39,7 @@
                                 </a>
                             </td>
                             <td scope="row">{{ $employee->sex}}</td>
-                            <td scope="row">{{ $employee->position}}</td>
+                            <td scope="row">{{ $employee->position->position}}</td>
                             <td scope="row">{{ $employee->created_at}}</td>
                             <td scope="row">{{ $employee->updated_at}}</td>
                             <td scope="row">

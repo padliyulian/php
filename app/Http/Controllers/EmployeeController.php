@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Position;
+use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -25,7 +27,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee/create');
+        $positions = Position::all();
+        return view('employee/create', compact('positions'));
     }
 
     /**
@@ -34,12 +37,8 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        $request->validate([
-            'nik' => 'required|size:10',
-            'name' => 'required'
-        ]);
         Employee::create($request->all());
         return redirect('/employee')->with('status', 'adding employee success');
     }
@@ -63,7 +62,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employee/edit', compact('employee'));
+        $positions = Position::all();
+        return view('employee/edit', compact('employee', 'positions'));
     }
 
     /**
@@ -73,20 +73,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Employee $employee, EmployeeRequest $request)
     {
-        $request->validate([
-            'nik' => 'required|size:10',
-            'name' => 'required'
-        ]);
-
-        Employee::where('id', $employee->id)->update([
-            'nik' => $request->nik,
-            'name' => $request->name,
-            'sex' => $request->sex,
-            'position' => $request->position,
-        ]);
-        
+        $employee->update($request->all());
         return redirect('/employee')->with('status', 'update employee success');
     }
 
