@@ -9,7 +9,7 @@
                     @csrf
                     @include('partial.form', [
                         'btn_title' => 'Add',
-                        'employee' => new App\Employee,
+                        'employee' => new App\Models\Employee,
                     ])
                 </form>
             </div>

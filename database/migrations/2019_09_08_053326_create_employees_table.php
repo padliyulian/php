@@ -28,6 +28,8 @@ class CreateEmployeesTable extends Migration
             ['nik' => '0807051003', 'name' => 'rudi agus susanto', 'sex' => 'male', 'position_id' => 3, 'created_at' => NOW()],
             ['nik' => '0807051004', 'name' => 'nanang qosim', 'sex' => 'male', 'position_id' => 4, 'created_at' => NOW()],
             ['nik' => '0807051005', 'name' => 'tri yulian', 'sex' => 'female', 'position_id' => 5, 'created_at' => NOW()],
+            ['nik' => '0807051006', 'name' => 'raisa aprilia', 'sex' => 'female', 'position_id' => 1, 'created_at' => NOW()],
+            ['nik' => '0807051007', 'name' => 'lebron james', 'sex' => 'male', 'position_id' => 6, 'created_at' => NOW()],
         ]);
     }
 
