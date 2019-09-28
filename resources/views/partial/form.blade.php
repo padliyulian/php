@@ -23,9 +23,11 @@
     <label for="position_id">Position</label>
     <select name="position_id" id="position_id" class="form-control @error('position_id') is-invalid @enderror">
         <option disabled selected>--select position</option>
+
         @foreach ($positions as $position)
             <option {{$employee->position_id === $position->id ? 'selected':''}} value="{{$position->id}}">{{$position->position}}</option>
         @endforeach
+        
     </select>
     @error('position_id')
         <div class="invalid-feedback">{{ $message }}</div>
