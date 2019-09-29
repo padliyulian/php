@@ -19,6 +19,21 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+
+{{-- <div class="form-group">
+    <div class="custom-control form-check-inline custom-radio">
+        <input type="radio" class="custom-control-input form-control @error('sex') is-invalid @enderror" id="male" name="sex" value="male">
+        <label class="custom-control-label" for="male">Male</label>
+    </div>
+    <div class="custom-control form-check-inline custom-radio">
+        <input type="radio" class="custom-control-input form-control @error('sex') is-invalid @enderror" id="female" name="sex" value="female">
+        <label class="custom-control-label" for="female">Female</label>
+    </div>
+    @error('sex')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div> --}}
+
 <div class="form-group">
     <label for="position_id">Position</label>
     <select name="position_id" id="position_id" class="form-control @error('position_id') is-invalid @enderror">
@@ -27,7 +42,7 @@
         @foreach ($positions as $position)
             <option {{$employee->position_id === $position->id ? 'selected':''}} value="{{$position->id}}">{{$position->position}}</option>
         @endforeach
-        
+
     </select>
     @error('position_id')
         <div class="invalid-feedback">{{ $message }}</div>
