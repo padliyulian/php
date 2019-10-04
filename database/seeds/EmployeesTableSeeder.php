@@ -20,6 +20,7 @@ class EmployeesTableSeeder extends Seeder
                 'sex' => $faker->randomElement($array = array ('Male', 'Female')),
                 'position_id' => $faker->numberBetween($min = 1, $max = 6),
                 'email' => $faker->email,
+                'photo' => 'noimage.png',
                 'created_at' => NOW()
            ]);
         }

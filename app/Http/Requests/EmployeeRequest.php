@@ -30,7 +30,8 @@ class EmployeeRequest extends FormRequest
                 'name' => 'required|max:100',
                 'sex' => 'required',
                 'position_id' => 'required',
-                'email' => 'required|email|max:100'
+                'email' => 'required|email|max:100',
+                'photo' => 'image|nullable|max:1999'
             ];
         } else {
             return [
@@ -38,7 +39,8 @@ class EmployeeRequest extends FormRequest
                 'name' => 'required|string|max:100',
                 'sex' => 'required|string',
                 'position_id' => 'required',
-                'email' => 'required|string|email|max:100|unique:employees'
+                'email' => 'required|string|email|max:100|unique:employees',
+                'photo' => 'image|nullable|max:1999'
             ];
         }
     }

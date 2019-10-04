@@ -68,4 +68,11 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+<div class="form-group">
+    <label for="photo">Photo</label>
+    <input value="{{old('photo') ?? $employee->photo}}" name="photo" type="file" class="form-control-file @error('photo') is-invalid @enderror" id="photo">
+    @error('photo')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 <button type="submit" class="btn btn-info">{{$btn_title}}</button>

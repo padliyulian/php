@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/employee/{{ $employee->id }}" method="POST">
+                <form action="/employee/{{ $employee->id }}" method="POST" enctype="multipart/form-data">
                     @method('patch')
                     @csrf
                     @include('partial.form', ['btn_title' => 'Update'])
