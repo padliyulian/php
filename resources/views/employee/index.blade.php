@@ -63,7 +63,7 @@
                                     <td scope="row">{{ $employee->email }}</td>
                                     <td scope="row">
                                         <a href="{{ url('/employee/'.$employee->id.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
-                                        <form action="{{ url('/employee/'.$employee->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ url('/employee/'.$employee->id) }}" method="POST" class="d-inline js-form__delete">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="d-inline btn btn-sm btn-danger">delete</button>
