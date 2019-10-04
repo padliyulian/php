@@ -15,6 +15,9 @@ Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
+
+Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
+
 // Route::get('/employee', 'EmployeeController@index');
 // Route::get('/employee/create', 'EmployeeController@create');
 // Route::get('/employee/{employee}', 'EmployeeController@show');

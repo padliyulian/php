@@ -11,6 +11,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ $employee->nik }}</h6>
                         <p class="card-text">
                             Sex : {{ $employee->sex }} <br>
+                            Email : {{ $employee->email }} <br>
                             Position: {{ $employee->position->position }}
                         </p>
                         <a href="{{ url('/employee') }}" class="btn btn-primary btn-sm">Back</a>

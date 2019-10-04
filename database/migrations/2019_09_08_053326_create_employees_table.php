@@ -19,17 +19,18 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('sex');
             $table->unsignedInteger('position_id');
+            $table->string('email');
             $table->timestamps();
         });
 
         DB::table('employees')->insert([
-            ['nik' => '0807051001', 'name' => 'padli yulian', 'sex' => 'male', 'position_id' => 1, 'created_at' => NOW()],
-            ['nik' => '0807051002', 'name' => 'iwan saputra', 'sex' => 'male', 'position_id' => 2, 'created_at' => NOW()],
-            ['nik' => '0807051003', 'name' => 'rudi agus susanto', 'sex' => 'male', 'position_id' => 3, 'created_at' => NOW()],
-            ['nik' => '0807051004', 'name' => 'nanang qosim', 'sex' => 'male', 'position_id' => 4, 'created_at' => NOW()],
-            ['nik' => '0807051005', 'name' => 'tri yulian', 'sex' => 'female', 'position_id' => 5, 'created_at' => NOW()],
-            ['nik' => '0807051006', 'name' => 'raisa aprilia', 'sex' => 'female', 'position_id' => 1, 'created_at' => NOW()],
-            ['nik' => '0807051007', 'name' => 'lebron james', 'sex' => 'male', 'position_id' => 6, 'created_at' => NOW()],
+            ['nik' => '0807051001', 'name' => 'padli yulian', 'sex' => 'Male', 'position_id' => 1, 'email' => 'padli@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051002', 'name' => 'iwan saputra', 'sex' => 'Male', 'position_id' => 2, 'email' => 'iwan@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051003', 'name' => 'rudi agus susanto', 'sex' => 'Male', 'position_id' => 3, 'email' => 'rudi@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051004', 'name' => 'nanang qosim', 'sex' => 'Male', 'position_id' => 4, 'email' => 'nanang@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051005', 'name' => 'tri yulian', 'sex' => 'Female', 'position_id' => 5, 'email' => 'tri@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051006', 'name' => 'raisa aprilia', 'sex' => 'Female', 'position_id' => 1, 'email' => 'raisa@gmail.com', 'created_at' => NOW()],
+            ['nik' => '0807051007', 'name' => 'lebron james', 'sex' => 'Male', 'position_id' => 6, 'email' => 'james@gmail.com', 'created_at' => NOW()],
         ]);
     }
 

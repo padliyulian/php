@@ -13,12 +13,13 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i=0; $i<20; $i++) {
+        for ($i=0; $i<2000; $i++) {
             DB::table('employees')->insert([
                 'nik' => $faker->numerify('##########'),
                 'name' => $faker->name,
-                'sex' => $faker->randomElement($array = array ('male', 'female')),
+                'sex' => $faker->randomElement($array = array ('Male', 'Female')),
                 'position_id' => $faker->numberBetween($min = 1, $max = 6),
+                'email' => $faker->email,
                 'created_at' => NOW()
            ]);
         }

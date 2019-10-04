@@ -22,12 +22,24 @@ class EmployeeRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            'nik' => 'required|size:10',
-            'name' => 'required',
-            'sex' => 'required',
-            'position_id' => 'required'
-        ];
+    {       
+        if ($this->isMethod('patch'))
+        {
+            return [
+                'nik' => 'required|size:10',
+                'name' => 'required|max:100',
+                'sex' => 'required',
+                'position_id' => 'required',
+                'email' => 'required|email|max:100'
+            ];
+        } else {
+            return [
+                'nik' => 'required|size:10|unique:employees',
+                'name' => 'required|string|max:100',
+                'sex' => 'required|string',
+                'position_id' => 'required',
+                'email' => 'required|string|email|max:100|unique:employees'
+            ];
+        }
     }
 }

@@ -46,7 +46,7 @@ class PositionController extends Controller
      */
     public function show(Position $position)
     {
-        $employees = $position->employee()->latest()->get();
+        $employees = $position->employee()->paginate(10);
         return view('position/show', compact('position', 'employees'));
     }
 
