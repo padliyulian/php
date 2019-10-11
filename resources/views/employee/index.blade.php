@@ -27,8 +27,16 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-2">
-                <a href="{{ url('/employee/create') }}" class="btn btn-primary btn-block mb-2">Add New</a>
+            <div class="col-md-2 mb-2">
+                <a href="{{ url('/employee/create') }}" class="btn btn-success">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+                <a href="{{ route('export.employee') }}" class="btn btn-info">
+                    <i class="fas fa-file-excel"></i>
+                </a>
+                <a href="{{ route('export.employee') }}" class="btn btn-primary">
+                    <i class="fas fa-file-pdf"></i>
+                </a>
             </div>
         </div>
         <div class="row">

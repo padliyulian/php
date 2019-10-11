@@ -22,6 +22,8 @@
                         @endforeach
                     </div>
                 </div>
+
+                <a class="nav-item nav-link" href="{{url('/exim')}}">Export/Import</a>
             </div>
         </div>
     

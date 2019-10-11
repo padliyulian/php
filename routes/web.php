@@ -13,6 +13,10 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
+Route::get('/exim', 'PagesController@exim');
+Route::get('/export', 'PagesController@exportEmployee')->name('export.employee');
+Route::post('/import', 'PagesController@importEmployee')->name('import.employee');
+
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
 
