@@ -34,7 +34,7 @@
                 <a href="{{ route('export.employee') }}" class="btn btn-info">
                     <i class="fas fa-file-excel"></i>
                 </a>
-                <a href="{{ route('export.employee') }}" class="btn btn-primary">
+                <a href="{{ route('print.employee') }}" class="btn btn-primary" target="_blank">
                     <i class="fas fa-file-pdf"></i>
                 </a>
             </div>
