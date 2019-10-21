@@ -18,7 +18,8 @@ class CreateEmployeesTable extends Migration
             $table->char('nik', 10)->unique();
             $table->string('name');
             $table->string('sex');
-            $table->unsignedInteger('position_id');
+            $table->bigInteger('position_id')->unsigned();
+            $table->foreign('position_id')->references('id')->on('positions');
             $table->string('email');
             $table->string('photo');
             $table->timestamps();
