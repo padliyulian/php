@@ -11,15 +11,17 @@
 |
 */
 
-Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/exim', 'PagesController@exim');
+Route::get('/', 'PagesController@index')->name('pages.index');
+Route::get('/about', 'PagesController@about')->name('pages.about');
+Route::get('/exim', 'PagesController@exim')->name('pages.exim');
 Route::get('/export', 'PagesController@exportEmployee')->name('export.employee');
 Route::post('/import', 'PagesController@importEmployee')->name('import.employee');
 Route::get('/print', 'PagesController@printEmployee')->name('print.employee');
 
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
+Route::resource('project', 'ProjectController');
+Route::get('/project/{project}/detach', 'ProjectController@detach')->name('project.detach');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
 

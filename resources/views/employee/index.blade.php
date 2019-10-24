@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    <form action="{{ url('/search/employee') }}" method="get">
+                    <form action="{{ route('search.employee') }}" method="get">
                         <input
                             type="text"
                             name="keyword"
