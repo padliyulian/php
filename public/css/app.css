@@ -18163,3 +18163,7 @@ body {
   line-height: 1.6;
 }
 
+.j-mw-100 {
+  min-width: 100px !important;
+}
+

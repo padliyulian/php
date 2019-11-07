@@ -21,7 +21,6 @@ Route::get('/print', 'PagesController@printEmployee')->name('print.employee');
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
 Route::resource('project', 'ProjectController');
-Route::get('/project/{project}/detach', 'ProjectController@detach')->name('project.detach');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
 

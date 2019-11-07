@@ -10,6 +10,7 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-item nav-link active" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{{url('/about')}}">About</a>
+                <a class="nav-item nav-link" href="{{url('/project')}}">Project</a>
                 <a class="nav-item nav-link" href="{{url('/employee')}}">Employee</a>
 
                 <div class="dropdown nav-item nav-link" style="cursor: pointer">

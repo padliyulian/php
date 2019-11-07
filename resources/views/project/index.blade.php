@@ -1,24 +1,23 @@
 @extends('layouts/main')
-@section('title', 'employees')
+@section('title', 'projects')
 
 @section('main')
     <div class="container">
         <div class="row">
             @include('message.success')
             <div class="col">
-                <h5>List Of Employees</h5>
+                <h5>List Of Project</h5>
             </div>
         </div>
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    <form action="{{ route('search.employee') }}" method="get">
+                    <form action="" method="get">
                         <input
                             type="text"
                             name="keyword"
                             class="form-control @error('keyword') is-invalid @enderror"
-                            id="keyword"
-                            placeholder="Search employee by name or email then press enter ..."
+                            placeholder="Search project by name or team then press enter ..."
                             autocomplete="off"
                         >
                         @error('keyword')
@@ -28,14 +27,8 @@
                 </div>
             </div>
             <div class="col-md-2 mb-2">
-                <a href="{{ url('/employee/create') }}" class="btn btn-success">
+                <a href="{{ url('/project/create') }}" class="btn btn-success btn-block">
                     <i class="fas fa-user-plus"></i>
-                </a>
-                <a href="{{ route('export.employee') }}" class="btn btn-info">
-                    <i class="fas fa-file-excel"></i>
-                </a>
-                <a href="{{ route('print.employee') }}" class="btn btn-primary" target="_blank">
-                    <i class="fas fa-file-pdf"></i>
                 </a>
             </div>
         </div>
@@ -46,34 +39,30 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col" class="text-center">No</th>
-                                <th scope="col">NIK</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Sex</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Team</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @if (!$employees->isEmpty())
-                                @foreach ($employees as $key => $employee)
+                            @if (!$projects->isEmpty())
+                                @foreach ($projects as $key => $project)
                                 <tr>
-                                    <td scope="row" class="text-center">{{ $employees->firstItem() + $key }}</td>
-                                    <td scope="row">{{ $employee->nik}}</td>
+                                    <td scope="row" class="text-center">{{ $projects->firstItem() + $key }}</td>
+                                    <td scope="row">{{ $project->project}}</td>
+                                    <td scope="row">{{ $project->description }}</td>
                                     <td scope="row">
-                                    <a href="{{ url('/employee/'.$employee->id) }}">
-                                            {{ $employee->name}}
-                                        </a>
-                                    </td>
-                                    <td scope="row">{{ $employee->sex }}</td>
-                                    <td scope="row">{{ $employee->position->position }}</td>
-                                    <td scope="row">{{ $employee->email }}</td>
+                                        @foreach ($project->employees as $employee)
+                                            {{ $employee->name }},
+                                        @endforeach
+                                    </td>                               
                                     <td scope="row" class="j-mw-100">
-                                        <a href="{{ url('/employee/'.$employee->id.'/edit') }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ url('/project/'.$project->id.'/edit') }}" class="btn btn-sm btn-warning">
                                             <span style="color: white;"><i class="fas fa-edit"></i></span>
                                         </a>
-                                        <form action="{{ url('/employee/'.$employee->id) }}" method="POST" class="d-inline js-form__delete">
+                                        <form action="{{ url('/project/'.$project->id) }}" method="POST" class="d-inline js-form__delete">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="d-inline btn btn-sm btn-danger">
@@ -90,7 +79,7 @@
                             @endif
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-center">{{$employees->links()}}</div>
+                    <div class="d-flex justify-content-center">{{$projects->links()}}</div>
                 </div>    
             </div>
         </div>

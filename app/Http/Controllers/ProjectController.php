@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectValidation;
 use App\Models\Employee;
 use App\Models\Project;
 
@@ -15,17 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        foreach ($projects as $project) {
-            echo $project->project.'<br>';
-            echo $project->description.'<br>';
-
-            $employees = $project->employees;
-            foreach ($employees as $employee) {
-                echo $employee->name. ', ';
-            }
-            echo '<br><br>';
-        }        
+        $projects = Project::paginate(10);
+        return view('project/index', compact('projects'));    
     }
 
     /**
@@ -35,15 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $project = new Project;
-        $project->project = 'avocado-tech.com';
-        $project->description = 'company profile website';
-        $project->save();
-
-        $employee = Employee::find([1,2,3,4,5]);
-        $project->employees()->attach($employee);
-
-        return 'Success';
+        return view('project.create');
     }
 
     /**
@@ -52,9 +36,18 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectValidation $request)
     {
-        //
+        
+        $project = new Project;
+        $project->project = $request->project;
+        $project->description = $request->description;
+        $project->save();
+
+        $employee = array_map('intval', explode(',', $request->teams_id));
+        $project->employees()->attach($employee);
+
+        return redirect('/project')->with('status', 'adding project success');
     }
 
     /**
@@ -74,9 +67,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('project/edit', compact('project'));
     }
 
     /**
@@ -86,9 +79,17 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Project $project, ProjectValidation $request)
     {
-        //
+        $project->project = $request->project;
+        $project->description = $request->description;
+        $project->save();
+
+        $project->employees()->detach();
+        $employee = array_map('intval', explode(',', $request->teams_id));
+        $project->employees()->attach($employee);
+
+        return redirect('/project')->with('status', 'update project success');
     }
 
     /**
@@ -97,20 +98,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        Project::destroy($project->id);
+        $project->employees()->detach();
+        return redirect('/project')->with('status', 'delete project success');
     }
 
-    /**
-     * Detach the specified employee from project.
-     * 
-     * @param  int  $project
-     */
-    public function detach(Project $project)
-    {
-        $employee = Employee::find(5);
-        $project->employees()->detach($employee);
-        return 'Success';
-    }
 }

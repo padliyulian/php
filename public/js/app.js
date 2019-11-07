@@ -39860,7 +39860,58 @@ document.querySelectorAll(".js-form__delete").forEach(function (el) {
       }
     });
   });
-});
+}); // del team button
+
+$('body').on('click', '.js-team-delete', function () {
+  var team = $(this).prev().val();
+  $('.js-team').each(function () {
+    if ($(this).val() == team) {
+      $(this).attr('disabled', false);
+    }
+  });
+  var oldTeams = $('.js-teams_id').val();
+  var oldTeamsArr = oldTeams.split(',');
+  var newTeam = [];
+  var newTeams = '';
+  oldTeamsArr.map(function (item) {
+    return item != team && newTeam.push(item);
+  });
+  newTeams = newTeam.toString();
+  $('.js-teams_id').val(newTeams);
+  $(this).parentsUntil('.js-teams').remove();
+}); // add team button
+
+$('.js-team').on('click', function () {
+  $('.js-teams').append('<li><input type="hidden" value="' + $(this).val() + '">' + $(this).text() + ' - <span class="text-danger js-team-delete" style="cursor: pointer;">delete</span></li>');
+  $(this).attr('disabled', true);
+  var x = parseInt($(this).val());
+
+  if ($('.js-teams_id').val()) {
+    $('.js-teams_id').val(function (i, oldval) {
+      return "".concat(oldval, ",").concat(x);
+    });
+  } else {
+    getTeamId.addTeam(parseInt($(this).val()));
+    $('.js-teams_id').val(getTeamId.value());
+  }
+}); // closure var teamId
+
+var getTeamId = function () {
+  var teamId = [];
+
+  function addVal(val) {
+    teamId.push(val);
+  }
+
+  return {
+    addTeam: function addTeam($id) {
+      addVal($id);
+    },
+    value: function value() {
+      return teamId;
+    }
+  };
+}();
 
 /***/ }),
 
