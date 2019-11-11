@@ -85,9 +85,9 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->save();
 
-        $project->employees()->detach();
+        // $project->employees()->detach();
         $employee = array_map('intval', explode(',', $request->teams_id));
-        $project->employees()->attach($employee);
+        $project->employees()->sync($employee);
 
         return redirect('/project')->with('status', 'update project success');
     }
