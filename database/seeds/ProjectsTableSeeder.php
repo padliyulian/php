@@ -29,5 +29,8 @@ class ProjectsTableSeeder extends Seeder
 
         $project = Project::create(['project' => 'spm-starch.co.id', 'description' => 'website about company profile']);
         $project->employees()->attach([1,2,3]);
+
+        $project = Project::create(['project' => 'avocado-tech.com', 'description' => 'website about company profile']);
+        $project->employees()->attach([1,2]);
     }
 }

@@ -17,4 +17,9 @@ class Employee extends Model
     {
         return $this->belongsToMany(Project::class)->withTimestamps();
     }
+
+    public function meetings()
+    {
+        return $this->belongsToMany(Meeting::class)->withTimestamps();
+    }
 }
