@@ -21,6 +21,8 @@ Route::get('/print', 'PagesController@printEmployee')->name('print.employee');
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
 Route::resource('project', 'ProjectController');
+Route::resource('client', 'ClientController');
+Route::get('api/client', 'ClientController@apiClient')->name('api.client');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
 
