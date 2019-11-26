@@ -10,9 +10,18 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-item nav-link active" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{{url('/about')}}">About</a>
-                <a class="nav-item nav-link" href="{{url('/project')}}">Project</a>
-                <a class="nav-item nav-link" href="{{url('/employee')}}">Employee</a>
-
+                <div class="dropdown nav-item nav-link" style="cursor: pointer">
+                    <a class="dropdown-toggle" id="manages-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Manages
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="manages-button">
+                        <a class="dropdown-item" href="{{url('/client')}}">Clients</a>
+                        <a class="dropdown-item" href="{{url('/employee')}}">Employees</a>
+                        <a class="dropdown-item" href="{{url('/meeting')}}">Meetings</a>
+                        <a class="dropdown-item" href="{{url('/position')}}">Positions</a>
+                        <a class="dropdown-item" href="{{url('/project')}}">Projects</a>
+                    </div>
+                </div>
                 <div class="dropdown nav-item nav-link" style="cursor: pointer">
                     <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Position
