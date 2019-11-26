@@ -15,7 +15,20 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client/index');
+        $client = Client:: all();
+        return Datatables::of($client)
+            ->addColumn('show_photo', function($client){
+                if ($client->photo == null){
+                    return 'No Image';
+                } else {
+                    return '<img class="img-fluid img-thumbnail" width="50" height="50" src="/images/client/'. $client->photo.'" alt="">';
+                }
+            })
+            ->addColumn('action', function($client) {
+                return '<a href="#" onClick="showClient('.$client->id.')"><i class="fas fa-eye"></i></a> '.
+                '<a href="#" onClick="editClient('.$client->id.')" class="text-warning"><i class="fas fa-edit"></i></a> '.
+                '<a href="#" onClick="deleteClient('.$client->id.')" class="text-danger"><i class="fas fa-trash"></i></a>';
+            })->rawColumns(['show_photo', 'action'])->make(true);
     }
 
     /**
@@ -130,21 +143,4 @@ class ClientController extends Controller
         return Client::destroy($client->id);
     }
 
-    public function apiClient()
-    {
-        $client = Client:: all();
-        return Datatables::of($client)
-            ->addColumn('show_photo', function($client){
-                if ($client->photo == null){
-                    return 'No Image';
-                } else {
-                    return '<img class="img-fluid img-thumbnail" width="50" height="50" src="/images/client/'. $client->photo.'" alt="">';
-                }
-            })
-            ->addColumn('action', function($client) {
-                return '<a href="#" onClick="showClient('.$client->id.')"><i class="fas fa-eye"></i></a> '.
-                '<a href="#" onClick="editClient('.$client->id.')" class="text-warning"><i class="fas fa-edit"></i></a> '.
-                '<a href="#" onClick="deleteClient('.$client->id.')" class="text-danger"><i class="fas fa-trash"></i></a>';
-            })->rawColumns(['show_photo', 'action'])->make(true);
-    }
 }

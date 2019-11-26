@@ -21,16 +21,7 @@ Route::get('/print', 'PagesController@printEmployee')->name('print.employee');
 Route::resource('employee', 'EmployeeController');
 Route::resource('position', 'PositionController');
 Route::resource('project', 'ProjectController');
-Route::resource('client', 'ClientController');
-Route::get('api/client', 'ClientController@apiClient')->name('api.client');
+Route::get('/pages/client', 'PagesController@client')->name('pages.client');
+Route::get('/pages/meeting', 'PagesController@meeting')->name('pages.meeting');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
-
-// Route::get('/employee', 'EmployeeController@index');
-// Route::get('/employee/create', 'EmployeeController@create');
-// Route::get('/employee/{employee}', 'EmployeeController@show');
-
-// Route::post('/employee', 'EmployeeController@store');
-// Route::delete('/employee/{employee}', 'EmployeeController@destroy');
-// Route::get('/employee/{employee}/edit', 'EmployeeController@edit');
-// Route::patch('/employee/{employee}', 'EmployeeController@update');

@@ -15,9 +15,9 @@
                         Manages
                     </a>
                     <div class="dropdown-menu" aria-labelledby="manages-button">
-                        <a class="dropdown-item" href="{{url('/client')}}">Clients</a>
+                        <a class="dropdown-item" href="{{url('/pages/client')}}">Clients</a>
                         <a class="dropdown-item" href="{{url('/employee')}}">Employees</a>
-                        <a class="dropdown-item" href="{{url('/meeting')}}">Meetings</a>
+                        <a class="dropdown-item" href="{{url('/pages/meeting')}}">Meetings</a>
                         <a class="dropdown-item" href="{{url('/position')}}">Positions</a>
                         <a class="dropdown-item" href="{{url('/project')}}">Projects</a>
                     </div>

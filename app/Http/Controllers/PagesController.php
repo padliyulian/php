@@ -22,6 +22,16 @@ class PagesController extends Controller
         return view('about', ['name' => 'Julian']);
     }
 
+    public function client()
+    {
+        return view('client/index');
+    }
+
+    public function meeting()
+    {
+        return view('meeting/index');
+    }
+
     public function exim()
     {
         return view('exim');

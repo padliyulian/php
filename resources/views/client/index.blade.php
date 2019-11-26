@@ -43,7 +43,7 @@
         let table = $('#client-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{route('api.client')}}",
+            ajax: "{{url('/api/v1/client')}}",
             columns: [
                 {   
                     data: 'id',
@@ -65,9 +65,22 @@
             ],
         });
 
-        let save_method = '';
+        // closure var save_method
+        let getClientMethod = (function() {
+            let save_method = '';
+            return {
+                changeMethod: function(val) {
+                    save_method = val;
+                },
+                value: function() {
+                    return save_method;
+                }
+            };
+        })();
+
         function addClient() {
-            save_method = 'add';
+            getClientMethod.changeMethod('add');
+            // console.log(getClientMethod.value());
             validator.resetForm();
             $('img[name=client-view]').attr('src', '');
             $('input[name=_method]').val('post');
@@ -78,13 +91,14 @@
         }
         
         function editClient(id) {
-            save_method = 'edit';
+            getClientMethod.changeMethod('edit');
+            // console.log(getClientMethod.value());
             validator.resetForm();
             $('img[name=client-view]').attr('src', '');
             $('input[name=_method]').val('PATCH');
             $('#formClient').trigger('reset');
             $.ajax({
-                url: "{{ url('client') }}" + '/' + id + "/edit",
+                url: "{{ url('/api/v1/client/') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
@@ -125,7 +139,7 @@
             }).then(function (result) {
                 if (result.value) {
                     $.ajax({
-                        url : "{{ url('client') }}" + '/' + id,
+                        url : "{{ url('/api/v1/client/') }}" + '/' + id,
                         type : "POST",
                         data : {'_method' : 'DELETE', '_token' : csrf_token},
                         success : function(data) {
@@ -169,8 +183,8 @@
             },
             submitHandler: function() {
                 let id = $('#id').val();
-                if (save_method == 'add') url = "{{ url('client') }}";
-                else url = "{{ url('client') . '/' }}" + id;
+                if (getClientMethod.value() == 'add') url = "{{ url('/api/v1/client/') }}";
+                else url = "{{ url('/api/v1/client/') . '/' }}" + id;
                 $.ajax({
                     url : url,
                     type : "POST",
@@ -181,7 +195,7 @@
                     success : function($data) {
                         $('#clientModal').modal('hide');
                         table.ajax.reload();
-                        if (save_method == 'add') {
+                        if (getClientMethod.value() == 'add') {
                             swal.fire({
                                 title: 'Success!',
                                 text: 'Data has been added!',
@@ -213,7 +227,7 @@
 
         function showClient(id) {
             $.ajax({
-                url: "{{ url('client') }}" + '/' + id,
+                url: "{{ url('/api/v1/client/') }}" + '/' + id,
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
