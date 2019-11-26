@@ -36,12 +36,27 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'address' => $request->address,
-            'email' => $request->email
-        ];
-        return Client::create($data);
+        if ($request->hasFile('photo-client')){
+            $filenameWithExt = $request->file('photo-client')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $fileExt = $request->file('photo-client')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$fileExt;
+            $path = $request->file('photo-client')->move(public_path('/images/client/'), $fileNameToStore);
+        } else {
+            $fileNameToStore = null;
+        }
+        
+        $client = new Client;
+        $client->name =  $request->name;
+        $client->address =  $request->address;
+        $client->email =  $request->email;
+        $client->photo =  $fileNameToStore;
+        $client->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Client Created'
+        ]);
     }
 
     /**
@@ -50,9 +65,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Client $client)
     {
-        //
+        return $client;
     }
 
     /**
@@ -61,9 +76,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
-        //
+        return $client;
     }
 
     /**
@@ -73,9 +88,31 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Client $client, Request $request)
     {
-        //
+        if ($request->hasFile('photo-client')){
+            if ($client->photo != null) {
+                unlink(public_path('/images/client/'.$client->photo));
+            }
+            $filenameWithExt = $request->file('photo-client')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $fileExt = $request->file('photo-client')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$fileExt;
+            $path = $request->file('photo-client')->move(public_path('/images/client/'), $fileNameToStore);
+        }
+        
+        $client->name =  $request->name;
+        $client->address =  $request->address;
+        $client->email =  $request->email;
+        if ($request->hasFile('photo-client')){
+            $client->photo = $fileNameToStore;
+        }
+        $client->update();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Client Updated'
+        ]);
     }
 
     /**
@@ -84,19 +121,30 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Client $client)
     {
-        //
+        if ($client->photo != null) {
+            unlink(public_path('/images/client/'.$client->photo));
+        }
+
+        return Client::destroy($client->id);
     }
 
     public function apiClient()
     {
         $client = Client:: all();
         return Datatables::of($client)
+            ->addColumn('show_photo', function($client){
+                if ($client->photo == null){
+                    return 'No Image';
+                } else {
+                    return '<img class="img-fluid img-thumbnail" width="50" height="50" src="/images/client/'. $client->photo.'" alt="">';
+                }
+            })
             ->addColumn('action', function($client) {
-                return '<a href="#"><i class="fas fa-eye"></i></a> '.
-                '<a href="#" onClick="editForm('.$client->id.')" class="text-warning"><i class="fas fa-edit"></i></a> '.
-                '<a href="#" onClick="deleteForm('.$client->id.')" class="text-danger"><i class="fas fa-trash"></i></a>';
-            })->make(true);
+                return '<a href="#" onClick="showClient('.$client->id.')"><i class="fas fa-eye"></i></a> '.
+                '<a href="#" onClick="editClient('.$client->id.')" class="text-warning"><i class="fas fa-edit"></i></a> '.
+                '<a href="#" onClick="deleteClient('.$client->id.')" class="text-danger"><i class="fas fa-trash"></i></a>';
+            })->rawColumns(['show_photo', 'action'])->make(true);
     }
 }

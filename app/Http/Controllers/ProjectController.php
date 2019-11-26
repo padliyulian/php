@@ -83,9 +83,8 @@ class ProjectController extends Controller
     {
         $project->project = $request->project;
         $project->description = $request->description;
-        $project->save();
+        $project->update();
 
-        // $project->employees()->detach();
         $employee = array_map('intval', explode(',', $request->teams_id));
         $project->employees()->sync($employee);
 

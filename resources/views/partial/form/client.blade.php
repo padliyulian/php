@@ -2,7 +2,7 @@
 <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="post" id="formClient">
+            <form method="post" id="formClient" enctype="multipart/form-data">
             @csrf @method('post')
                 <div class="modal-header">
                     <h5 class="modalClient-title" id="clientModalLabel"></h5>
@@ -24,10 +24,17 @@
                         <label for="email">Email</label>
                         <input name="email" type="email" class="form-control" id="email" placeholder="client email">
                     </div>
+                    <div class="form-group">
+                        <label for="photo-client">Photo (jpg/jpeg/png)</label>
+                        <input id="photo-client" name="photo-client" type="file" class="form-control" accept="image/jpg,image/jpeg,image/png">
+                    </div>
+                    <div class="form-group">
+                        <img name="client-view" class="img-fluid" src="" alt="">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary modalClient-save"></button>
                 </div>
             </form>  
         </div>
