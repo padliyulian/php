@@ -23,7 +23,23 @@ document.querySelectorAll(".js-form__delete").forEach((el) => {
     });
 });
 
+// closure var teamId
+let getTeamId = (function() {
+    let teamId = [];
+    function addVal(val) {
+        teamId.push(val);
+    }
+    return {
+        addTeam: function($id) {
+            addVal($id);
+        },
+        value: function() {
+            return teamId;
+        }
+    };
+})();
 
+// CRUD PROJECT ------------------------/
 // del team button
 $('body').on('click', '.js-team-delete', function () {
     let team = $(this).prev().val();
@@ -60,18 +76,3 @@ $('.js-team').on('click', function(){
     }
 });
 
-// closure var teamId
-let getTeamId = (function() {
-    let teamId = [];
-    function addVal(val) {
-        teamId.push(val);
-    }
-    return {
-        addTeam: function($id) {
-            addVal($id);
-        },
-        value: function() {
-            return teamId;
-        }
-    };
-})();

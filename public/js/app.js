@@ -39860,7 +39860,26 @@ document.querySelectorAll(".js-form__delete").forEach(function (el) {
       }
     });
   });
-}); // del team button
+}); // closure var teamId
+
+var getTeamId = function () {
+  var teamId = [];
+
+  function addVal(val) {
+    teamId.push(val);
+  }
+
+  return {
+    addTeam: function addTeam($id) {
+      addVal($id);
+    },
+    value: function value() {
+      return teamId;
+    }
+  };
+}(); // CRUD PROJECT ------------------------/
+// del team button
+
 
 $('body').on('click', '.js-team-delete', function () {
   var team = $(this).prev().val();
@@ -39894,24 +39913,7 @@ $('.js-team').on('click', function () {
     getTeamId.addTeam(parseInt($(this).val()));
     $('.js-teams_id').val(getTeamId.value());
   }
-}); // closure var teamId
-
-var getTeamId = function () {
-  var teamId = [];
-
-  function addVal(val) {
-    teamId.push(val);
-  }
-
-  return {
-    addTeam: function addTeam($id) {
-      addVal($id);
-    },
-    value: function value() {
-      return teamId;
-    }
-  };
-}();
+});
 
 /***/ }),
 
@@ -39997,8 +39999,8 @@ var swal = window.swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/julian/Public/laravel/app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/julian/Public/laravel/app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/julian/code/sample/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/julian/code/sample/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

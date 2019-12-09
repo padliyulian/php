@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('positions', Position::all());
         });
 
-        view()->composer(['project/create', 'project/edit'], function($view){
+        view()->composer(['project/create', 'project/edit', 'meeting/form'], function($view){
             $view->with('employees', Employee::all());
         });
     }

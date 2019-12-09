@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Meeting;
+use Yajra\DataTables\Datatables;
 
 class MeetingController extends Controller
 {
@@ -14,21 +15,26 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::all();
-
-        foreach ($meetings as $meeting) {
-            $meeting->view_meeting = [
-                'href' => 'api/v1/meeting/'.$meeting->id,
-                'method' => 'GET'
-            ];
-        }
-
-        $response = [
-            'msg' => 'List Of All Meeting',
-            'meetings' => $meetings
-        ];
-
-        return response()->json($response);
+        $meeting = Meeting::query();
+        return DataTables::of($meeting)
+            ->addColumn('action', function ($meeting) {
+                return view('meeting.action', [
+                    'meeting' => $meeting,
+                    'url_show' => route('meeting.show', $meeting->id),
+                    'url_edit' => route('meeting.edit', $meeting->id),
+                    'url_destroy' => route('meeting.destroy', $meeting->id)
+                ]);
+            })
+            ->addColumn('team', function($meeting){
+                $teams = '';
+                foreach ($meeting->employees as $employee) {
+                    $teams .= $employee->name .', ';
+                }
+                return $teams;
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -38,7 +44,8 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        //
+        $meeting = new Meeting;
+        return view('meeting/form', compact('meeting'));
     }
 
     /**
@@ -49,22 +56,26 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate = [
+        $request->validate([
             'name' => 'required',
             'description' => 'required',
             'time' => 'required',
             'location' => 'required',
-            'teams_id' => 'required',
-        ];
+            'meeting_teams_id' => 'required',
+        ]);
+
+        $date = $request->time;
+        $date = str_replace('T',' ',$date);
+        $date .= ':00';
 
         $meeting = new Meeting;
         $meeting->name = $request->name;
         $meeting->description = $request->description;
-        $meeting->time = $request->time;
+        $meeting->time = $date;
         $meeting->location = $request->location;
 
         if ($meeting->save()) {
-            $employee = array_map('intval', explode(',', $request->teams_id));
+            $employee = array_map('intval', explode(',', $request->meeting_teams_id));
             $meeting->employees()->attach($employee);
 
             $meeting->view_meeting = [
@@ -80,9 +91,7 @@ class MeetingController extends Controller
             return response()->json($response);
         }
 
-        $response = [
-            'msg' => 'Add Meeting Failed',
-        ];
+        $response = ['msg' => 'Add Meeting Failed',];
 
         return response()->json($response);
     }
@@ -93,20 +102,9 @@ class MeetingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Meeting $meeting)
     {
-        $meeting = Meeting::with('employees')->where('id', $id)->firstOrFail();
-        $meeting->view_meeting = [
-            'href' => 'api/v1/meeting',
-            'method' => 'GET'
-        ];
-
-        $response = [
-            'msg' => 'Meeting Detail',
-            'meeting' => $meeting
-        ];
-
-        return response()->json($response);
+        return view('meeting/show', compact('meeting'));
     }
 
     /**
@@ -115,9 +113,9 @@ class MeetingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Meeting $meeting)
     {
-        //
+        return view('meeting/form', compact('meeting'));
     }
 
     /**
@@ -129,21 +127,25 @@ class MeetingController extends Controller
      */
     public function update(Meeting $meeting, Request $request)
     {
-        $this->validate = [
+        $request->validate([
             'name' => 'required',
             'description' => 'required',
             'time' => 'required',
             'location' => 'required',
-            'teams_id' => 'required',
-        ];
+            'meeting_teams_id' => 'required',
+        ]);
+
+        $date = $request->time;
+        $date = str_replace('T',' ',$date);
+        $date .= ':00';
 
         $meeting->name = $request->name;
         $meeting->description = $request->description;
-        $meeting->time = $request->time;
+        $meeting->time = $date;
         $meeting->location = $request->location;
 
         if ($meeting->update()) {
-            $employee = array_map('intval', explode(',', $request->teams_id));
+            $employee = array_map('intval', explode(',', $request->meeting_teams_id));
             $meeting->employees()->sync($employee);
 
             $meeting->view_meeting = [
