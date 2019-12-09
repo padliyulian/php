@@ -39870,6 +39870,9 @@ var getTeamId = function () {
   }
 
   return {
+    clearTeam: function clearTeam() {
+      teamId = [];
+    },
     addTeam: function addTeam($id) {
       addVal($id);
     },
@@ -39896,6 +39899,11 @@ $('body').on('click', '.js-team-delete', function () {
     return item != team && newTeam.push(item);
   });
   newTeams = newTeam.toString();
+
+  if ($('.js-teams_id').val('')) {
+    getTeamId.clearTeam();
+  }
+
   $('.js-teams_id').val(newTeams);
   $(this).parentsUntil('.js-teams').remove();
 }); // add team button

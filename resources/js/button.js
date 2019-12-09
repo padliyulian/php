@@ -30,6 +30,9 @@ let getTeamId = (function() {
         teamId.push(val);
     }
     return {
+        clearTeam: function() {
+            teamId = [];
+        },
         addTeam: function($id) {
             addVal($id);
         },
@@ -55,8 +58,10 @@ $('body').on('click', '.js-team-delete', function () {
     let newTeams = '';
     oldTeamsArr.map(item => item != team && newTeam.push(item));
     newTeams = newTeam.toString();
+    if ($('.js-teams_id').val('')) {
+        getTeamId.clearTeam();
+    }
     $('.js-teams_id').val(newTeams)
-
     $(this).parentsUntil('.js-teams').remove();
 });
 

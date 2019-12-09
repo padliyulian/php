@@ -53,6 +53,6 @@
             ?>
         @endif
     </ol>
-    <input type="hidden" name="teams_id" class="js-teams_id" value="{{$str ?? $str}}">
+    <input type="text" name="teams_id" class="js-teams_id" value="{{$str ?? $str}}" readonly>
 </div>
 <button type="submit" class="btn btn-info">{{$btn_title}}</button>

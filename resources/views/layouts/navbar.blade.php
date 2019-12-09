@@ -22,17 +22,6 @@
                         <a class="dropdown-item" href="{{url('/project')}}">Projects</a>
                     </div>
                 </div>
-                <div class="dropdown nav-item nav-link" style="cursor: pointer">
-                    <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Position
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach ($positions as $position)
-                            <a class="dropdown-item" href="/position/{{$position->id}}">{{$position->position}}</a>
-                        @endforeach
-                    </div>
-                </div>
-
                 <a class="nav-item nav-link" href="{{url('/exim')}}">Export/Import</a>
             </div>
         </div>
