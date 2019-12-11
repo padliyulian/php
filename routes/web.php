@@ -12,6 +12,10 @@
 */
 
 Route::get('/', 'PagesController@index')->name('pages.index');
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/about', 'PagesController@about')->name('pages.about');
 Route::get('/exim', 'PagesController@exim')->name('pages.exim');
 Route::get('/export', 'PagesController@exportEmployee')->name('export.employee');
@@ -26,6 +30,3 @@ Route::get('/pages/meeting', 'PagesController@meeting')->name('pages.meeting');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
 
-Auth::routes(['verify' => true]);
-
-Route::get('/home', 'HomeController@index')->name('home');

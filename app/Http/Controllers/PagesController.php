@@ -12,6 +12,11 @@ use PDF;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified'], ['except' => 'index']);
+    }
+
     public function index()
     {
         return view('welcome');

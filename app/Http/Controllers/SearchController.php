@@ -7,6 +7,11 @@ use App\Models\Employee;
 
 class SearchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+    
     public function employee(Request $request)
     {
         $request->validate(['keyword' => 'required']);

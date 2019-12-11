@@ -8,7 +8,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
-                <a class="nav-item nav-link active" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="{{url('/home')}}">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{{url('/about')}}">About</a>
                 <div class="dropdown nav-item nav-link" style="cursor: pointer">
                     <a class="dropdown-toggle" id="manages-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,6 +23,12 @@
                     </div>
                 </div>
                 <a class="nav-item nav-link" href="{{url('/exim')}}">Export/Import</a>
+                <a class="nav-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </a>
             </div>
         </div>
     

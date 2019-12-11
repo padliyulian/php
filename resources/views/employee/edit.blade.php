@@ -8,7 +8,7 @@
                 <form action="/employee/{{ $employee->id }}" method="POST" enctype="multipart/form-data">
                     @method('patch')
                     @csrf
-                    @include('partial.form', ['btn_title' => 'Update'])
+                    @include('partial.form.employee', ['btn_title' => 'Update'])
                 </form>
             </div>
         </div>

@@ -8,6 +8,11 @@ use App\Models\Client;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
