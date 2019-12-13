@@ -15,6 +15,7 @@
                         </button>
                     </div>
                     <div class="card-body table-responsive">
+                        <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
                         <table id="client-table" class="table table-striped">
                             <thead>
                                 <tr>
@@ -43,7 +44,12 @@
         let table = $('#client-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{url('/api/v1/client')}}",
+            ajax: {
+                url: "{{url('/api/v1/client')}}",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
+            },
             columns: [
                 {   
                     data: 'id',
@@ -101,6 +107,9 @@
                 url: "{{ url('/api/v1/client/') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
                 success: function(data) {
                     $('#clientModal').modal('show');
                     $('.modalClient-title').text('Edit Client');
@@ -142,6 +151,9 @@
                         url : "{{ url('/api/v1/client/') }}" + '/' + id,
                         type : "POST",
                         data : {'_method' : 'DELETE', '_token' : csrf_token},
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                        },
                         success : function(data) {
                             table.ajax.reload();
                             swal.fire({
@@ -192,6 +204,9 @@
                     data : new FormData($('#formClient')[0]),
                     contentType: false,
                     processData: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                    },
                     success : function($data) {
                         $('#clientModal').modal('hide');
                         table.ajax.reload();
@@ -230,6 +245,9 @@
                 url: "{{ url('/api/v1/client/') }}" + '/' + id,
                 type: "GET",
                 dataType: "JSON",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
                 success: function(data) {
                     $('#clientDetail').modal('show');
                     $('.js-detail-name').text(data.name);

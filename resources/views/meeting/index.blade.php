@@ -15,6 +15,7 @@
                         </a>
                     </div>
                     <div class="card-body table-responsive">
+                        <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
                         <table data-order='[[ 0, "desc" ]]' id="meeting-table" class="table table-striped">
                             <thead>
                                 <tr>
@@ -43,7 +44,12 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            ajax: "{{url('/api/v1/meeting')}}",
+            ajax: {
+                url: "{{url('/api/v1/meeting')}}",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
+            },
             columns: [
                 {   
                     data: 'id',
@@ -75,6 +81,9 @@
             $.ajax({
                 url: url,
                 dataType: 'html',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
                 success: function (response) {
                     $('.js-meeting__mbody').html(response);
                 }
@@ -99,6 +108,9 @@
                 url : url,
                 method: meeting_method,
                 data : form.serialize(),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
                 success: function (response) {
                     form.trigger('reset');
                     $('#meetingModal').modal('hide');
@@ -187,6 +199,9 @@
             $.ajax({
                 url: url,
                 dataType: 'html',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                },
                 success: function (response) {
                     $('.js-meeting__mbody').html(response);
                 }
@@ -217,6 +232,9 @@
                         url : url,
                         type : "POST",
                         data : {'_method' : 'DELETE', '_token' : csrf_token},
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', "Bearer " + $('.js-api__token').val());
+                        },
                         success : function(response) {
                             table.ajax.reload();
                             console.log(response);

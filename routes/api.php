@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 // });
 
 // test API
-Route::group(['prefix' => 'v1'], function(){
+Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function(){
     Route::resource('meeting', 'MeetingController');
     Route::resource('client', 'ClientController');
 });
