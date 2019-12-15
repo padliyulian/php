@@ -1,6 +1,6 @@
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form method="post" id="formClient" enctype="multipart/form-data">
             @csrf @method('post')

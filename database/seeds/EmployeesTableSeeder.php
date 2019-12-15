@@ -13,7 +13,7 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i=0; $i<2000; $i++) {
+        for ($i=0; $i<200; $i++) {
             DB::table('employees')->insert([
                 'nik' => $faker->numerify('##########'),
                 'name' => $faker->name,

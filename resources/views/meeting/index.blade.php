@@ -1,41 +1,82 @@
-@extends('layouts/main')
+@extends('layouts/dashboard/index')
 @section('title', 'meetings')
 
-@section('main')
+@section('content')
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h5>List Of Meeting</h5>
-                        <a href="{{url('/api/v1/meeting/create')}}" class="btn btn-primary btn-md js-meeting__add">
-                            Add Meeting
-                        </a>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
-                        <table data-order='[[ 0, "desc" ]]' id="meeting-table" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Time</th>
-                                    <th>Location</th>
-                                    <th>Team</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Meetings</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Meetings</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+    
+          <!-- Default box -->
+          <div class="card">
+            <div class="card-header">
+                <a href="{{url('/api/v1/meeting/create')}}" class="btn btn-primary btn-md js-meeting__add">
+                    Add Meeting
+                </a>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container px-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
+                                <table data-order='[[ 0, "desc" ]]' id="meeting-table" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Time</th>
+                                            <th>Location</th>
+                                            <th>Team</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
+            <!-- /.card-footer-->
+          </div>
+          <!-- /.card -->
+    
+        </section>
+        <!-- /.content -->
         @include('partial.form.meeting')
     </div>
+    <!-- /.content-wrapper -->
+
     <script type="text/javascript" src="{{ asset('/js/jquery-3.3.1.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript">

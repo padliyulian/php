@@ -1,41 +1,82 @@
-@extends('layouts/main')
+@extends('layouts/dashboard/index')
 @section('title', 'clients')
 
-@section('main')
+@section('content')
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h5>List Of Client</h5>
-                        <button onClick="addClient()" class="btn btn-primary btn-md">
-                            Add Client
-                        </button>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
-                        <table id="client-table" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>Email</th>
-                                    <th>Photo</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Clients</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Clients</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+    
+          <!-- Default box -->
+          <div class="card">
+            <div class="card-header">
+                <button onClick="addClient()" class="btn btn-primary btn-md">
+                    Add Client
+                </button>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
                 </div>
             </div>
-        </div>
-        @include('partial.form.client')
-        @include('client.show')
+            <div class="card-body">
+                    <div class="container px-0">
+                        <div class="row">
+                            <div class="col-12">                                
+                                <div class="table-responsive">
+                                    <input type="hidden" class="js-api__token" value="{{ Auth::user()->api_token }}">
+                                    <table id="client-table" class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Email</th>
+                                                <th>Photo</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
+            <!-- /.card-footer-->
+          </div>
+          <!-- /.card -->
+    
+        </section>
+        <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
+    @include('partial.form.client')
+    @include('client.show')
+
     <script type="text/javascript" src="{{ asset('/js/jquery-3.3.1.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/jquery.validate.min.js') }}"></script>

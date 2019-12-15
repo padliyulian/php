@@ -15,7 +15,7 @@ Route::get('/', 'PagesController@index')->name('pages.index');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/about', 'PagesController@about')->name('pages.about');
 Route::get('/exim', 'PagesController@exim')->name('pages.exim');
 Route::get('/export', 'PagesController@exportEmployee')->name('export.employee');
