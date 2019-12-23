@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Position;
 use App\Models\Employee;
+use App\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer(['project/create', 'project/edit', 'meeting/form'], function($view){
             $view->with('employees', Employee::all());
+        });
+
+        view()->composer(['auth/register'], function($view){
+            $view->with('roles', Role::all());
         });
     }
 

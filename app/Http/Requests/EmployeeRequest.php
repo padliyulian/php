@@ -26,7 +26,7 @@ class EmployeeRequest extends FormRequest
         if ($this->isMethod('patch'))
         {
             return [
-                'nik' => 'required|size:10',
+                'nik' => 'required|numeric|size:10',
                 'name' => 'required|max:100',
                 'sex' => 'required',
                 'position_id' => 'required',
@@ -35,7 +35,7 @@ class EmployeeRequest extends FormRequest
             ];
         } else {
             return [
-                'nik' => 'required|size:10|unique:employees',
+                'nik' => 'required|numeric|size:10|unique:employees',
                 'name' => 'required|string|max:100',
                 'sex' => 'required|string',
                 'position_id' => 'required',

@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>App | @yield('title', 'Login')</title>
+    <title>LSP | @yield('title', 'Login')</title>
     <link rel="stylesheet" href={{ asset('css/app.css') }}>
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <div id="app" class="login-box">
         <div class="login-logo">
             <a href="{{url('/')}}"><b>Admin</b>LTE</a>
         </div>
@@ -78,7 +77,7 @@
                     @endif
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="{{url('/register')}}" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.login-card-body -->
