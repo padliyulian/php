@@ -29,4 +29,3 @@ Route::get('/pages/client', 'PagesController@client')->name('pages.client');
 Route::get('/pages/meeting', 'PagesController@meeting')->name('pages.meeting');
 
 Route::get('/search/employee', 'SearchController@employee')->name('search.employee');
-
